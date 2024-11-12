@@ -377,8 +377,9 @@
 
     .mobileDivInsideImg{
       background-color: rgba(255, 255, 0, 0.2);
-      height: 100%;
-      width: 20dvw;
+      height: calc(100% - 2dvw);
+      width: 18dvw;
+      padding: 1dvw;
     }
 
     #mobileBeschleunigungsButtonDiv{
@@ -406,6 +407,50 @@
       background-color: rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(10px);
     }
+    
+    #mobileSliderSteeringDiv{
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      padding: 1vw;
+    }
+
+    #mobileSliderSteering{
+      width: 90%;
+      -webkit-appearance: none; 
+      appearance: none;
+      background: transparent;
+      margin: 0;
+    }
+
+
+    #mobileSliderSteering::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 2vw;
+      background: var(--backgroundcolor);
+      border-radius: 1vw;
+    }
+
+    #mobileSliderSteering::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2vw;
+      aspect-ratio: 1/1;
+      background-color: var(--fontcolor);
+      border-radius: 50%;
+      
+    }
+
+    #mobileSliderSteering::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background-color: var(--fontcolor);
+      border-radius: 50%;
+    
+    }
+
+
+
 
     #mobileFadenkreuzDiv{
       display: flex;
@@ -558,7 +603,7 @@
             <div id="mobileFadenkreuzContainer">
               <div class="mobileDivInsideImg" id="mobileBeschleunigungsButtonDiv"><div id="mobileBeschleunigungsButtonDivDiv"><button class="mobileAccelerationButton">+</button><button class="mobileAccelerationButton">-</button></div></div>
               <div class="mobileDivInsideImg" id="mobileFadenkreuzDiv"><img src="https://squidpod.github.io/images/pics/aim_Dark.png" alt="" width="50" id="crosshair"></div>
-              <div class="mobileDivInsideImg"><input type="range" min="1" max="3"></div>
+              <div class="mobileDivInsideImg" id="mobileSliderSteeringDiv"><input id="mobileSliderSteering" type="range" min="1" max="3"></div>
             </div>
             <img id="mobileImg" src="http://192.168.18.168:8080/video" />
           </div>
