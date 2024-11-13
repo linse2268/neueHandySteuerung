@@ -277,6 +277,12 @@
       #themeLabel {
         font-size: 1.5rem;
       }
+
+      #desktopDivNr2{
+        grid-column: 1/3;
+        grid-row: 6/8;
+        display: flex;
+      }
       #info {
         width: 100%;
         font-size: 1rem;
@@ -307,6 +313,8 @@
         display: flex;
         justify-content: end;
         align-items: end;
+        position: static;
+        top: -10vh;
         
       }
       #settings{
@@ -380,6 +388,7 @@
       height: calc(100% - 2dvw);
       width: 18dvw;
       padding: 1dvw;
+      background-color: rgba(102, 51, 153, 0.274);
     }
 
     #mobileBeschleunigungsButtonDiv{
@@ -403,8 +412,8 @@
       width: 100%;
       border-radius: 1vw;
       border: none;
-      backdrop-filter: blur(10px);
       background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
     }
     
     #mobileSliderSteeringDiv{
@@ -526,12 +535,18 @@
             <li>Länge: 30cm</li>
             <li>Empfang: definiert nach Reichweite des benutzten Netzwerks</li>
           </ul>
+          <h4>Anleitung:</h4>
+          <ul>
+            <li>WASD - vorwärts, links, rückwärts, rechts
+            <li>Pfeil rechts - höhere Geschwindigkeitsstufe</li>
+            <li>Pfeil links - niedrigere Geschwindigkeitsstufe</li>
+            <li>Pfeil oben/unten - Kamera entsprechend schwenken</li>
+          </ul>
           <div id="settingsConatiner">
             <button id="settings" onclick="openMenu()"><img id="settingIcon" src="https://squidpod.github.io/images/pics/settings%20forDarkmode.png" alt="" width="50"></button>
           </div>
           </div>
-          <div class="loadDivs">2</div>
-          <div class="loadDivs">3</div>
+          <div class="loadDivs" id="desktopDivNr2">2</div>
       
           <div class="loadDivs" id="bildContainer">
             <div id="fadenkreuzContainer">
@@ -543,14 +558,8 @@
           <button class="desktopSteeringButton loadDivs" id="w" onclick="sendButtonState('honk')">
             HUPE
           </button>
-          <button class="desktopSteeringButton loadDivs" id="a" onclick="sendButtonState('a')">
-            Button 2
-          </button>
-          <button class="desktopSteeringButton loadDivs" id="s" onclick="sendButtonState('s')">
-            Button 3
-          </button>
-          <button class="desktopSteeringButton loadDivs" id="d" onclick="sendButtonState('d')">
-            Button 4
+          <button class="desktopSteeringButton loadDivs" id="a" onclick="sendButtonState('p')">
+            shoot
           </button>
           <div class="loadDivs" id="counterDisplay">Speed: <span id="counter">4</span>/7</div>
           <div class="loadDivs" id="testFürWASD">1</div>
@@ -596,14 +605,13 @@
           <div loadDivs class="button loadDivs" id="banner" >
             <h5 id="linsenpodBanner">LinsenPod</h5>
             <h3 id="curiosityBanner"><b>Curiosity</b></h3>
-            <button id="menuOpenButton"></button>
           </div>
     </div>
 
     <div id="mobileSteeringSite">
         <div class="loadDivs" id="mobileBildContainer">
             <div id="mobileFadenkreuzContainer">
-              <div class="mobileDivInsideImg" id="mobileBeschleunigungsButtonDiv"><div id="mobileBeschleunigungsButtonDivDiv"><button class="mobileAccelerationButton">+</button><button class="mobileAccelerationButton">-</button></div></div>
+              <div class="mobileDivInsideImg" id="mobileBeschleunigungsButtonDiv"><div id="mobileBeschleunigungsButtonDivDiv"><button class="mobileAccelerationButton" ontouchstart="mobileBeschleunigungPlusDown()" onmousedown="mobileBeschleunigungPlusDown()" ontouchend="mobileBeschleunigungPlusRelease()" onmouseup="mobileBeschleunigungPlusRelease">+</button><button class="mobileAccelerationButton" ontouchstart="mobileBeschleunigungMinusDown()" onmousedown="mobileBeschleunigungMinusDown()" ontouchend="mobileBeschleunigungMinusRelease()" onmouseup="mobileBeschleunigungMinusRelease()">-</button></div></div>
               <div class="mobileDivInsideImg" id="mobileFadenkreuzDiv"><img src="https://squidpod.github.io/images/pics/aim_Dark.png" alt="" width="50" id="crosshair"></div>
               <div class="mobileDivInsideImg" id="mobileSliderSteeringDiv"><input id="mobileSliderSteering" type="range" min="1" max="3"></div>
             </div>
@@ -621,13 +629,29 @@
           
     </div>
     <script>
-      let beta = 0; //Lenkachse
-      let gamma = 0; //Beschleunigungsachse
-    const betaGammaDisplay = document.getElementById("betaGamma");
-    
-    const permissionButton = document.getElementById("mobilePermissionButton");
 
+      function mobileBeschleunigungPlusDown(){
+        sendButtonState("w");
+        console.log("w");
+      }
       
+      function mobileBeschleunigungPlusRelease(){
+        sendButtonState("w_release");
+        console.log("w_release");
+      }
+
+
+      function mobileBeschleunigungMinusDown(){
+        sendButtonState("s");
+        console.log("s");
+
+      }
+
+      function mobileBeschleunigungMinusRelease(){
+        sendButtonState("s_release");
+        console.log("s_release");
+
+      }
 
       function mobileSpeedDown(){
         sendButtonState("ArrowLeft");
