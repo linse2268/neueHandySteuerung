@@ -443,7 +443,8 @@
     #mobileSliderSteering::-webkit-slider-runnable-track {
       width: 100%;
       height: 4.1vw;
-      background: var(--backgroundcolor);
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
       border-radius: 2.2vw;
       border: none;
       }
@@ -521,7 +522,15 @@
     </div>
 
     <div id="desktopSteeringSite">
-        <div class="loadDivs" id="fakten"><h4>Fakten:</h1><ul>
+        <div class="loadDivs" id="fakten">
+          <h4>Anleitung:</h4>
+          <ul>
+            <li>WASD - vorwärts, links, rückwärts, rechts
+            <li>Pfeil rechts - höhere Geschwindigkeitsstufe</li>
+            <li>Pfeil links - niedrigere Geschwindigkeitsstufe</li>
+            <li>Pfeil oben/unten - Kamera entsprechend schwenken</li>
+          </ul>
+          <h4>Fakten:</h1><ul>
             <li>maximale Geschwindigkeit: 5km/h</li>
             <li>Zugkraft: 5 Newton</li>
             <li>Gewicht: 400g</li>
@@ -530,13 +539,7 @@
             <li>Länge: 30cm</li>
             <li>Empfang: definiert nach Reichweite des benutzten Netzwerks</li>
           </ul>
-          <h4>Anleitung:</h4>
-          <ul>
-            <li>WASD - vorwärts, links, rückwärts, rechts
-            <li>Pfeil rechts - höhere Geschwindigkeitsstufe</li>
-            <li>Pfeil links - niedrigere Geschwindigkeitsstufe</li>
-            <li>Pfeil oben/unten - Kamera entsprechend schwenken</li>
-          </ul>
+          
           <div id="settingsConatiner">
             <button id="settings" onclick="openMenu()"><img id="settingIcon" src="https://squidpod.github.io/images/pics/settings%20forDarkmode.png" alt="" width="50"></button>
           </div>
@@ -608,7 +611,7 @@
             <div id="mobileFadenkreuzContainer">
               <div class="mobileDivInsideImg" id="mobileBeschleunigungsButtonDiv"><div id="mobileBeschleunigungsButtonDivDiv"><button class="mobileAccelerationButton" ontouchstart="mobileBeschleunigungPlusDown()" onmousedown="mobileBeschleunigungPlusDown()" ontouchend="mobileBeschleunigungPlusRelease()" onmouseup="mobileBeschleunigungPlusRelease">+</button><button class="mobileAccelerationButton" ontouchstart="mobileBeschleunigungMinusDown()" onmousedown="mobileBeschleunigungMinusDown()" ontouchend="mobileBeschleunigungMinusRelease()" onmouseup="mobileBeschleunigungMinusRelease()">-</button></div></div>
               <div class="mobileDivInsideImg" id="mobileFadenkreuzDiv"><img src="https://squidpod.github.io/images/pics/aim_Dark.png" alt="" width="50" id="crosshair"></div>
-              <div class="mobileDivInsideImg" id="mobileSliderSteeringDiv"><input id="mobileSliderSteering" type="range" min="1" max="3"></div>
+              <div class="mobileDivInsideImg" id="mobileSliderSteeringDiv"><input id="mobileSliderSteering" type="range" min="1" max="3" onchange="mobileSliderValueSend()"></div>
             </div>
             <img id="mobileImg" src="https://images.ifun.de/wp-content/uploads/2017/11/schoner.jpg" />
           </div>
@@ -624,6 +627,22 @@
           
     </div>
     <script>
+      const mobileSliderSteering = document.getElementById('mobileSliderSteering');
+      let mobileSliderSteeringValue = 2;
+
+      function mobileSliderValueSend(){
+        mobileSliderSteeringValue = mobileSliderSteering.value;
+        if(mobileSliderSteeringValue == 1){
+          sendButtonState("a");
+        }
+        else if(mobileSliderSteeringValue == 3){
+          sendButtonState("d");
+        }
+        else{
+          sendButtonState("a_release");
+          sendButtonState("d_release");
+        }
+      }
 
       function mobileBeschleunigungPlusDown(){
         sendButtonState("w");
